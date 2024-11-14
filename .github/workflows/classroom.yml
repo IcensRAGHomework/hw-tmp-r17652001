@@ -42,3 +42,10 @@ jobs:
 
       - name: Display score
         run: echo "Final Score:${{ env.SCORE }}"
+
+      - name: Record score
+        uses: classroom-resources/autograding-grading-reporter@v1
+        with:
+          score: ${{ env.SCORE }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
