@@ -51,4 +51,5 @@ jobs:
         with:
           score: ${{ env.SCORE }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          runners: "ubuntu-latest"
 
