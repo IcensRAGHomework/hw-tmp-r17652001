@@ -46,5 +46,5 @@ jobs:
         uses: classroom-resources/autograding-grading-reporter@v1
         with:
           token: ${{ secrets.ORG_PAT_TOKEN }}
-          grade: ${{ env.SCORE }}
+          runners: ${{ env.SCORE }}
 
