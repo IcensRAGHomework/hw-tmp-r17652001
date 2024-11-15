@@ -14,7 +14,7 @@ jobs:
         run: |
           git clone https://${{ secrets.ORG_PAT_TOKEN }}@github.com/IcensRAGHomework/assignment-tests-.git temp-tests
           
-      - name: Cache dependencies
+      - name: Cache Python dependencies
         id: cache-deps
         uses: actions/cache@v2
         with:
@@ -24,11 +24,7 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Install dependencies
-        if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: pip install -r requirements.txt
-
-      - name: Install pytest
-        run: pip install pytest
+        run: pip install --cache-dir ~/.cache/pip -r requirements.txt
         
       - name: Prepare tests
         run: |
@@ -46,10 +42,9 @@ jobs:
       - name: Display score
         run: echo "Final Score:${{ env.SCORE }}"
 
-      - name: Record score
+      - name: Report grade to GitHub Classroom
         uses: classroom-resources/autograding-grading-reporter@v1
         with:
-          score: ${{ env.SCORE }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          runners: "ubuntu-latest"
+          token: ${{ secrets.ORG_PAT_TOKEN }}
+          grade: ${{ env.SCORE }}
 
